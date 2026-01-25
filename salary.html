@@ -8,29 +8,37 @@
 
 <script>
 
-let guard=sessionStorage.guard;
+let guard=sessionStorage.guard||"";
 let sheet="1CpxpzeEqWKXxTzhnI9nh7WnZdP1jIWIgxkIpS3PBBSc";
 
 fetch("https://docs.google.com/spreadsheets/d/"+sheet+"/gviz/tq?tqx=out:json")
-.then(r=>r.text())
-.then(t=>{
+.then(res=>res.text())
+.then(txt=>{
 
-let j=JSON.parse(t.substring(47).slice(0,-2));
-let rows=j.table.rows;
+let json=JSON.parse(txt.substr(47).slice(0,-2));
+let rows=json.table.rows;
 
-let out="<tr><th>Name</th><th>Location</th><th>Salary</th></tr>";
+let html="<tr><th>Name</th><th>Location</th><th>Salary</th></tr>";
 
-rows.forEach(x=>{
-if(x.c[0].v.toLowerCase()==guard.toLowerCase()){
-out+=`<tr>
-<td>${x.c[0].v}</td>
-<td>${x.c[1].v}</td>
-<td>${x.c[2].v}</td>
+rows.forEach(r=>{
+
+let name=r.c[0]?.v||"";
+let loc=r.c[1]?.v||"";
+let sal=r.c[2]?.v||"";
+
+if(name.toLowerCase()==guard.toLowerCase()){
+
+html+=`<tr>
+<td>${name}</td>
+<td>${loc}</td>
+<td>${sal}</td>
 </tr>`;
+
 }
+
 });
 
-tbl.innerHTML=out;
+tbl.innerHTML=html;
 
 });
 
