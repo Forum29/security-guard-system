@@ -1,0 +1,16 @@
+<div class="d-flex justify-content-between">
+<h2>Training Center</h2>
+<button onclick="logout()">Logout</button>
+</div>
+
+<iframe width="350" height="250"
+src="https://www.youtube.com/embed/tgbNymZ7vqY"></iframe>
+
+<script>
+if(sessionStorage.role!="guard") location="index.html";
+
+function logout(){
+sessionStorage.clear();
+location="index.html";
+}
+</script>
