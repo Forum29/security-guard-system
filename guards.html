@@ -16,16 +16,23 @@ fetch("https://docs.google.com/spreadsheets/d/"+sheet+"/gviz/tq?tqx=out:json")
 .then(r=>r.text())
 .then(t=>{
 
-let j=JSON.parse(t.substring(47).slice(0,-2));
+let j=JSON.parse(t.substr(47).slice(0,-2));
 let rows=j.table.rows;
 
-let out="<tr><th>Name</th><th>Location</th></tr>";
+let out="<tr><th>Name</th><th>Location</th><th>Salary</th></tr>";
 
 rows.forEach(x=>{
+
+let n=x.c[0]?.v||"";
+let l=x.c[1]?.v||"";
+let s=x.c[2]?.v||"";
+
 out+=`<tr>
-<td>${x.c[0].v}</td>
-<td>${x.c[1].v}</td>
+<td>${n}</td>
+<td>${l}</td>
+<td>${s}</td>
 </tr>`;
+
 });
 
 tbl.innerHTML=out;
