@@ -8,12 +8,15 @@
 
 <script>
 
-let api="https://script.google.com/macros/s/AKfycbxCBvaYeCUUSzljQojjqmXAFYcox15Z6adIbTSxCuXGt4cIvgC5Dzqi3Cf2-5MMNFZg/exec";
-let guard=sessionStorage.guard||"";
+const api="https://script.google.com/macros/s/AKfycbxCBvaYeCUUSzljQojjqmXAFYcox15Z6adIbTSxCuXGt4cIvgC5Dzqi3Cf2-5MMNFZg/exec";
+const guard=sessionStorage.guard||"";
 
 function mark(){
 
-if(!guard){ alert("No guard"); return; }
+if(guard==""){
+alert("Please login again");
+return;
+}
 
 fetch(api,{
 method:"POST",
@@ -21,7 +24,7 @@ headers:{"Content-Type":"application/x-www-form-urlencoded"},
 body:"name="+encodeURIComponent(guard)
 })
 .then(r=>r.text())
-.then(t=>alert("Attendance Saved"));
+.then(()=>alert("Attendance Saved"));
 
 }
 
@@ -29,3 +32,4 @@ body:"name="+encodeURIComponent(guard)
 
 </body>
 </html>
+
