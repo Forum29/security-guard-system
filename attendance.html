@@ -4,33 +4,20 @@
 
 <h3>Attendance</h3>
 
-<button onclick="mark()">Mark Attendance</button>
+<form action="https://script.google.com/macros/s/AKfycbwyGe-i8_BwbXDjqNhQY-BeuvJ1JRwTgi1HaxihIAkXcBVQNFWytrTAFQBydK8j9B0r/exec" method="POST">
 
-<form id="f" method="POST" target="hidden">
 <input type="hidden" name="name" id="g">
-</form>
 
-<iframe name="hidden" style="display:none"></iframe>
+<button type="submit" onclick="set()">Mark Attendance</button>
+
+</form>
 
 <script>
 
-const api="https://script.google.com/macros/s/AKfycbwyGe-i8_BwbXDjqNhQY-BeuvJ1JRwTgi1HaxihIAkXcBVQNFWytrTAFQBydK8j9B0r/exec";
-
-function mark(){
-
-let guard=localStorage.guard||"";
-
-if(guard==""){
-alert("Login again");
-return;
-}
-
+function set(){
+var guard=localStorage.guard||"";
 document.getElementById("g").value=guard;
-document.getElementById("f").action=api;
-document.getElementById("f").submit();
-
-alert("Attendance Saved");
-
+alert("Attendance Submitted");
 }
 
 </script>
