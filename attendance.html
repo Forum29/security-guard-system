@@ -8,7 +8,7 @@
 
 <script>
 
-const api="https://script.google.com/macros/s/AKfycbyOx91OhAK6u5F2wzmFQqs34YjXmxP_TWbmPThoHPaqECFsEYTfBUmc2aQ9L4VoARA_/exec";
+const api="https://script.google.com/macros/s/AKfycbxksVk9-Oj-Xma8P0r3qNtJI21qtJ3yAml3YR3kzquwFgpw2qvpKEyKjU65Fa5LA1oo/exec";
 const guard=sessionStorage.guard||"";
 
 function mark(){
@@ -20,11 +20,13 @@ return;
 
 fetch(api,{
 method:"POST",
-headers:{"Content-Type":"application/x-www-form-urlencoded"},
+headers:{
+"Content-Type":"application/x-www-form-urlencoded"
+},
 body:"name="+encodeURIComponent(guard)
 })
 .then(r=>r.text())
-.then(t=>alert("Attendance Saved"));
+.then(()=>alert("Attendance Saved"));
 
 }
 
@@ -32,4 +34,3 @@ body:"name="+encodeURIComponent(guard)
 
 </body>
 </html>
-
