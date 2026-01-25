@@ -11,13 +11,11 @@
 
 <div class="col-md-4">
 <div class="card p-3">
-<h5>Mark Attendance</h5>
+<h5>Attendance</h5>
 
-<form action="https://formsubmit.co/forumtailor866@gmail.com" method="POST">
-<input name="Name" class="form-control" placeholder="Name"><br>
-<input type="file"><br><br>
-<input id="gps" name="GPS" class="form-control"><br>
-<button class="btn btn-success w-100">Submit</button>
+<form>
+<input id="name" class="form-control" placeholder="Name"><br>
+<button onclick="save()" type="button" class="btn btn-success w-100">Save Entry</button>
 </form>
 
 </div>
@@ -33,7 +31,7 @@
 <div class="col-md-4">
 <div class="card p-3">
 <h5>Training</h5>
-<a href="training.html" class="btn btn-primary">Open Training</a>
+<a href="training.html" class="btn btn-primary">Training Center</a>
 </div>
 </div>
 
@@ -44,9 +42,12 @@
 <script>
 if(sessionStorage.role!="guard") location="index.html";
 
-navigator.geolocation.getCurrentPosition(p=>{
-gps.value=p.coords.latitude+","+p.coords.longitude;
-});
+name.value=sessionStorage.guard||"";
+
+function save(){
+sessionStorage.guard=name.value;
+alert("Saved");
+}
 
 function logout(){
 sessionStorage.clear();
