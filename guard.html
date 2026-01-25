@@ -3,32 +3,41 @@
 <div class="container mt-4">
 
 <div class="d-flex justify-content-between">
-<h2>Guard Dashboard</h2>
+<h3>Guard Dashboard</h3>
 <button onclick="logout()" class="btn btn-danger">Logout</button>
 </div>
 
-<div class="card p-3 mt-3">
+<div class="row mt-4">
 
-<h4>Attendance</h4>
+<div class="col-md-4">
+<div class="card p-3">
+<h5>Mark Attendance</h5>
 
 <form action="https://formsubmit.co/forumtailor866@gmail.com" method="POST">
-
-<input name="Guard" class="form-control" placeholder="Name"><br>
-
+<input name="Name" class="form-control" placeholder="Name"><br>
 <input type="file"><br><br>
-
 <input id="gps" name="GPS" class="form-control"><br>
-
-<button class="btn btn-success">Submit Attendance</button>
-
+<button class="btn btn-success w-100">Submit</button>
 </form>
 
 </div>
+</div>
 
-<br>
+<div class="col-md-4">
+<div class="card p-3">
+<h5>Salary</h5>
+<a href="salary.html" class="btn btn-primary">View Salary</a>
+</div>
+</div>
 
-<a class="btn btn-outline-primary" href="salary.html">Salary</a>
-<a class="btn btn-outline-primary" href="training.html">Training</a>
+<div class="col-md-4">
+<div class="card p-3">
+<h5>Training</h5>
+<a href="training.html" class="btn btn-primary">Open Training</a>
+</div>
+</div>
+
+</div>
 
 </div>
 
