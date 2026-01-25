@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <body>
 
 <h3>Guard Dashboard</h3>
@@ -21,15 +20,17 @@
 
 <script>
 
-name.value=sessionStorage.guard||"";
+if(localStorage.guard){
+name.value=localStorage.guard;
+}
 
 function save(){
-sessionStorage.guard=name.value;
+localStorage.guard=name.value;
 alert("Saved");
 }
 
 function logout(){
-sessionStorage.clear();
+localStorage.clear();
 location="index.html";
 }
 
