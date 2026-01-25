@@ -8,13 +8,13 @@
 
 <script>
 
-const api="https://script.google.com/macros/s/AKfycbxCBvaYeCUUSzljQojjqmXAFYcox15Z6adIbTSxCuXGt4cIvgC5Dzqi3Cf2-5MMNFZg/exec";
+const api="https://script.google.com/macros/s/AKfycbyOx91OhAK6u5F2wzmFQqs34YjXmxP_TWbmPThoHPaqECFsEYTfBUmc2aQ9L4VoARA_/exec";
 const guard=sessionStorage.guard||"";
 
 function mark(){
 
 if(guard==""){
-alert("Please login again");
+alert("Login again");
 return;
 }
 
@@ -24,7 +24,7 @@ headers:{"Content-Type":"application/x-www-form-urlencoded"},
 body:"name="+encodeURIComponent(guard)
 })
 .then(r=>r.text())
-.then(()=>alert("Attendance Saved"));
+.then(t=>alert("Attendance Saved"));
 
 }
 
