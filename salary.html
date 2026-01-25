@@ -1,3 +1,25 @@
-<h3>Salary Records</h3>
+<h3>My Salary</h3>
 
-<iframe src="https://docs.google.com/spreadsheets/d/1VEvY6_3QqHe3Y3JaX1i3LYr8c9g-1YR7fEVMduXHxCY/edit?usp=sharing" width="100%" height="600"></iframe>
+<table border="1" id="tbl"></table>
+
+<script>
+let guard=sessionStorage.guard;
+let sheet="1emsIaGNpInDbyYvU1DkogECSevK1v-GB9BMkHuMmEP0";
+
+fetch(`https://docs.google.com/spreadsheets/d/${sheet}/gviz/tq?tqx=out:json`)
+.then(r=>r.text())
+.then(d=>{
+let json=JSON.parse(d.substr(47).slice(0,-2));
+let rows=json.table.rows;
+
+let html="<tr><th>Name</th><th>Location</th><th>Salary</th></tr>";
+
+rows.forEach(r=>{
+if(r.c[0].v.toLowerCase()==guard.toLowerCase()){
+html+=`<tr><td>${r.c[0].v}</td><td>${r.c[1].v}</td><td>${r.c[2].v}</td></tr>`;
+}
+});
+
+tbl.innerHTML=html;
+});
+</script>
