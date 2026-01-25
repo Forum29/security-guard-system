@@ -1,52 +1,40 @@
 <!DOCTYPE html>
 <html>
+
 <body>
 
-<h3>Guard Records</h3>
+<h3>Guard Dashboard</h3>
 
-<input id="search" placeholder="Search guard" onkeyup="filter()">
+<input id="name" placeholder="Enter your name">
 
-<table border="1" id="tbl"></table>
+<br><br>
+
+<button onclick="save()">Save Name</button>
+
+<br><br>
+
+<a href="attendance.html">Attendance</a>
+
+<br><br>
+
+<button onclick="logout()">Logout</button>
 
 <script>
 
-const sheet="1CpxpzeEqWKXxTzhnI9nh7WnZdP1jIWIgxkIpS3PBBSc";
+name.value=sessionStorage.guard||"";
 
-fetch(`https://docs.google.com/spreadsheets/d/${sheet}/gviz/tq?tqx=out:json`)
-.then(res=>res.text())
-.then(data=>{
-
-const json=JSON.parse(data.substring(47).slice(0,-2));
-const rows=json.table.rows;
-
-let html="<tr><th>Name</th><th>Location</th><th>Salary</th></tr>";
-
-for(let r of rows){
-
-let name=r.c[0]?.v||"";
-let loc=r.c[1]?.v||"";
-let sal=r.c[2]?.v||"";
-
-html+=`<tr>
-<td>${name}</td>
-<td>${loc}</td>
-<td>${sal}</td>
-</tr>`;
-
+function save(){
+sessionStorage.guard=name.value;
+alert("Saved");
 }
 
-tbl.innerHTML=html;
-
-});
-
-function filter(){
-let v=search.value.toLowerCase();
-for(let r of tbl.rows){
-r.style.display=r.innerText.toLowerCase().includes(v)?"":"none";
-}
+function logout(){
+sessionStorage.clear();
+location="index.html";
 }
 
 </script>
 
 </body>
 </html>
+
