@@ -1,25 +1,40 @@
+<!DOCTYPE html>
+<html>
+<body>
+
 <h3>My Salary</h3>
 
 <table border="1" id="tbl"></table>
 
 <script>
+
 let guard=sessionStorage.guard;
-let sheet="1emsIaGNpInDbyYvU1DkogECSevK1v-GB9BMkHuMmEP0";
+let sheet="1CpxpzeEqWKXxTzhnI9nh7WnZdP1jIWIgxkIpS3PBBSc";
 
-fetch(`https://docs.google.com/spreadsheets/d/${sheet}/gviz/tq?tqx=out:json`)
+fetch("https://docs.google.com/spreadsheets/d/"+sheet+"/gviz/tq?tqx=out:json")
 .then(r=>r.text())
-.then(d=>{
-let json=JSON.parse(d.substr(47).slice(0,-2));
-let rows=json.table.rows;
+.then(t=>{
 
-let html="<tr><th>Name</th><th>Location</th><th>Salary</th></tr>";
+let j=JSON.parse(t.substring(47).slice(0,-2));
+let rows=j.table.rows;
 
-rows.forEach(r=>{
-if(r.c[0].v.toLowerCase()==guard.toLowerCase()){
-html+=`<tr><td>${r.c[0].v}</td><td>${r.c[1].v}</td><td>${r.c[2].v}</td></tr>`;
+let out="<tr><th>Name</th><th>Location</th><th>Salary</th></tr>";
+
+rows.forEach(x=>{
+if(x.c[0].v.toLowerCase()==guard.toLowerCase()){
+out+=`<tr>
+<td>${x.c[0].v}</td>
+<td>${x.c[1].v}</td>
+<td>${x.c[2].v}</td>
+</tr>`;
 }
 });
 
-tbl.innerHTML=html;
+tbl.innerHTML=out;
+
 });
+
 </script>
+
+</body>
+</html>
