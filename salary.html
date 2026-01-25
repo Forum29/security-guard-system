@@ -1,15 +1,3 @@
-<div class="d-flex justify-content-between">
-<h2>Salary Records</h2>
-<button onclick="logout()">Logout</button>
-</div>
+<h3>Salary Records</h3>
 
 <iframe src="https://docs.google.com/spreadsheets/d/1VEvY6_3QqHe3Y3JaX1i3LYr8c9g-1YR7fEVMduXHxCY/edit?usp=sharing" width="100%" height="600"></iframe>
-
-<script>
-if(sessionStorage.role!="guard") location="index.html";
-
-function logout(){
-sessionStorage.clear();
-location="index.html";
-}
-</script>
