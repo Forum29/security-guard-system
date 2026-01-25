@@ -1,29 +1,45 @@
+<!DOCTYPE html>
+<html>
+<body>
+
 <h3>Guard Records</h3>
 
-<input id="s" placeholder="Search" onkeyup="f()">
+<input id="search" placeholder="Search guard" onkeyup="filter()">
 
-<table border="1" id="t"></table>
+<table border="1" id="tbl"></table>
 
 <script>
-let sheet="1emsIaGNpInDbyYvU1DkogECSevK1v-GB9BMkHuMmEP0";
 
-fetch(`https://docs.google.com/spreadsheets/d/${sheet}/gviz/tq?tqx=out:json`)
+let sheet="1CpxpzeEqWKXxTzhnI9nh7WnZdP1jIWIgxkIpS3PBBSc";
+
+fetch("https://docs.google.com/spreadsheets/d/"+sheet+"/gviz/tq?tqx=out:json")
 .then(r=>r.text())
-.then(d=>{
-let j=JSON.parse(d.substr(47).slice(0,-2));
-let h="<tr><th>Name</th><th>Location</th></tr>";
+.then(t=>{
 
-j.table.rows.forEach(r=>{
-h+=`<tr><td>${r.c[0].v}</td><td>${r.c[1].v}</td></tr>`;
+let j=JSON.parse(t.substring(47).slice(0,-2));
+let rows=j.table.rows;
+
+let out="<tr><th>Name</th><th>Location</th></tr>";
+
+rows.forEach(x=>{
+out+=`<tr>
+<td>${x.c[0].v}</td>
+<td>${x.c[1].v}</td>
+</tr>`;
 });
 
-t.innerHTML=h;
+tbl.innerHTML=out;
+
 });
 
-function f(){
-let v=s.value.toLowerCase();
-for(let r of t.rows){
+function filter(){
+let v=search.value.toLowerCase();
+for(let r of tbl.rows){
 r.style.display=r.innerText.toLowerCase().includes(v)?"":"none";
 }
+}
+
 </script>
 
+</body>
+</html>
