@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Secure Login</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+
+<style>
+body{
+background:linear-gradient(135deg,#0f2027,#203a43,#2c5364);
+height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+}
+.card{width:350px}
+</style>
+
+</head>
+
+<body>
+
+<div class="card p-4 shadow">
+
+<h3 class="text-center">Security Guard System</h3>
+
+<input id="user" class="form-control mt-3" placeholder="Username">
+<input id="pass" type="password" class="form-control mt-3" placeholder="Password">
+
+<button onclick="login()" class="btn btn-primary w-100 mt-3">Login</button>
+
+</div>
+
+<script>
+const guardHash = CryptoJS.SHA256("123").toString();
+const adminHash = CryptoJS.SHA256("admin").toString();
+
+function login(){
+
+u=user.value;
+p=CryptoJS.SHA256(pass.value).toString();
+
+if(u=="guard" && p==guardHash){
+sessionStorage.role="guard";
+location="guard.html";
+}
+
+else if(u=="admin" && p==adminHash){
+sessionStorage.role="admin";
+location="admin.html";
+}
+
+else alert("Invalid credentials");
+}
+</script>
+
+</body>
+</html>
