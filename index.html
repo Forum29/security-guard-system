@@ -34,19 +34,31 @@ justify-content:center;
 <script>
 function sha(x){return CryptoJS.SHA256(x).toString();}
 
+const ADMIN_USER="admin";
+const ADMIN_PASS=sha("admin123");
+
+const GUARD_USER="guard";
+const GUARD_PASS=sha("guard123");
+
 function login(){
+
 let u=user.value.trim();
 let p=sha(pass.value.trim());
 
-if(u==="admin" && p===sha("admin")){
+if(u===ADMIN_USER && p===ADMIN_PASS){
 sessionStorage.role="admin";
 location="admin.html";
 }
-else{
+
+else if(u===GUARD_USER && p===GUARD_PASS){
 sessionStorage.role="guard";
-sessionStorage.guard=u;
 location="guard.html";
 }
+
+else{
+alert("Invalid Credentials");
+}
+
 }
 </script>
 
