@@ -21,7 +21,7 @@
 <div class="card p-3">
 <h5>Quick Links</h5>
 <a href="guards.html">Guard List</a><br>
-<a href="attendance.html">Attendance History</a>
+<a href="attendance_history.html">Attendance History</a>
 </div>
 </div>
 
@@ -30,6 +30,7 @@
 </div>
 
 <script>
+
 if(sessionStorage.role!="admin") location="index.html";
 
 new Chart(chart,{
@@ -44,4 +45,5 @@ function logout(){
 sessionStorage.clear();
 location="index.html";
 }
+
 </script>
