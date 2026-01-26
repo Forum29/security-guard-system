@@ -6,9 +6,7 @@
 
 <form action="https://script.google.com/macros/s/AKfycbxjgcppWEvNconEHwx5OltfSTTPrEXEV5UuQjrYkK4IOZXAm_Log7VLUaaYMGdM3fQwQQ/exec" method="GET">
 
-<input type="text" id="show" placeholder="Your name" readonly>
-
-<input type="hidden" name="name" id="g">
+<input type="text" id="namebox" name="name" placeholder="Enter your name">
 
 <br><br>
 
@@ -18,22 +16,23 @@
 
 <script>
 
+window.onload=function(){
+if(localStorage.guard){
+document.getElementById("namebox").value=localStorage.guard;
+}
+}
+
 function set(){
 
-var guard = localStorage.guard || "";
+var v=document.getElementById("namebox").value;
 
-if(guard==""){
-alert("Please go back and Save your name first");
+if(v==""){
+alert("Please enter your name");
 return false;
 }
 
-document.getElementById("show").value = guard;
-document.getElementById("g").value = guard;
+localStorage.guard=v;
 
-}
-
-window.onload=function(){
-document.getElementById("show").value = localStorage.guard || "";
 }
 
 </script>
