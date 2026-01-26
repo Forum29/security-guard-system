@@ -10,25 +10,26 @@
 
 const sheet="1CpxpzeEqWKXxTzhnI9nh7WnZdP1jIWIgxkIpS3PBBSc";
 
-// IMPORTANT: sheet tab name MUST be Attendance
-fetch("https://docs.google.com/spreadsheets/d/"+sheet+"/gviz/tq?sheet=Attendance&tq=select%20A,B,C&tqx=out:json")
+fetch("https://docs.google.com/spreadsheets/d/"+sheet+"/gviz/tq?sheet=Attendance&tqx=out:json")
 .then(r=>r.text())
 .then(t=>{
 
 const j = JSON.parse(t.substring(47).slice(0,-2));
-const rows = j.table.rows;
+let rows = j.table.rows;
 
-let h = "<tr><th>Name</th><th>Date</th><th>Time</th></tr>";
+// FORCE skip first row (header)
+rows = rows.slice(1);
 
-// start from index 0 (real data now)
+let h="<tr><th>Name</th><th>Date</th><th>Time</th></tr>";
+
 rows.forEach(r=>{
 
-let n = r.c[0] ? r.c[0].v : "";
-let d = r.c[1] ? r.c[1].v : "";
-let ti = r.c[2] ? r.c[2].v : "";
+let n=r.c[0]?.v||"";
+let d=r.c[1]?.v||"";
+let ti=r.c[2]?.v||"";
 
-if(n!=""){   // skip empty rows
-h += `<tr>
+if(n!=""){
+h+=`<tr>
 <td>${n}</td>
 <td>${d}</td>
 <td>${ti}</td>
@@ -37,7 +38,7 @@ h += `<tr>
 
 });
 
-tbl.innerHTML = h;
+tbl.innerHTML=h;
 
 });
 
