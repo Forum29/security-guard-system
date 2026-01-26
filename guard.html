@@ -20,17 +20,24 @@
 
 <script>
 
-if(localStorage.guard){
+if(localStorage.guard && localStorage.guard!="undefined"){
 name.value=localStorage.guard;
 }
 
 function save(){
+
+if(name.value==""){
+alert("Enter name");
+return;
+}
+
 localStorage.guard=name.value;
 alert("Saved");
 }
 
 function logout(){
 localStorage.clear();
+sessionStorage.clear();
 location="index.html";
 }
 
