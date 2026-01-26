@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h3>Attendance History</h3>
+
+<table border="1" id="tbl"></table>
+
+<script>
+
+const sheet="1CpxpzeEqWKXxTzhnI9nh7WnZdP1jIWIgxkIpS3PBBSc";
+
+fetch("https://docs.google.com/spreadsheets/d/"+sheet+"/gviz/tq?sheet=Attendance&tqx=out:json")
+.then(r=>r.text())
+.then(t=>{
+
+const j=JSON.parse(t.substring(47).slice(0,-2));
+const rows=j.table.rows;
+
+let h="<tr><th>Name</th><th>Date</th><th>Time</th></tr>";
+
+rows.forEach(r=>{
+h+=`<tr>
+<td>${r.c[0]?.v||""}</td>
+<td>${r.c[1]?.v||""}</td>
+<td>${r.c[2]?.v||""}</td>
+</tr>`;
+});
+
+tbl.innerHTML=h;
+
+});
+
+</script>
+
+</body>
+</html>
