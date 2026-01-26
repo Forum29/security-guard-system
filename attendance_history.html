@@ -8,36 +8,29 @@
 
 <script>
 
-// NEW sheet id
 const sheet="1GcPLcqgyAV23UEQLkQdXUETRAY4dfYlt_6kCG9flYRc";
 
-fetch("https://docs.google.com/spreadsheets/d/"+sheet+"/gviz/tq?sheet=Attendance&tqx=out:json")
+fetch("https://docs.google.com/spreadsheets/d/"+sheet+"/export?format=csv")
 .then(r=>r.text())
 .then(t=>{
 
-const j = JSON.parse(t.substring(47).slice(0,-2));
-let rows = j.table.rows;
-
-// skip header
-rows = rows.slice(1);
+let lines=t.trim().split("\n");
 
 let h="<tr><th>Name</th><th>Date</th><th>Time</th></tr>";
 
-rows.forEach(r=>{
+for(let i=1;i<lines.length;i++){
 
-let n=r.c[0]?.v||"";
-let d=r.c[1]?.v||"";
-let ti=r.c[2]?.v||"";
+let c=lines[i].split(",");
 
-if(n!=""){
+if(c[0]){
 h+=`<tr>
-<td>${n}</td>
-<td>${d}</td>
-<td>${ti}</td>
+<td>${c[0]}</td>
+<td>${c[1]||""}</td>
+<td>${c[2]||""}</td>
 </tr>`;
 }
 
-});
+}
 
 tbl.innerHTML=h;
 
@@ -47,3 +40,4 @@ tbl.innerHTML=h;
 
 </body>
 </html>
+
