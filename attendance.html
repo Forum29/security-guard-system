@@ -6,7 +6,11 @@
 
 <form action="https://script.google.com/macros/s/AKfycbxjgcppWEvNconEHwx5OltfSTTPrEXEV5UuQjrYkK4IOZXAm_Log7VLUaaYMGdM3fQwQQ/exec" method="GET">
 
+<input type="text" id="show" placeholder="Your name" readonly>
+
 <input type="hidden" name="name" id="g">
+
+<br><br>
 
 <button type="submit" onclick="set()">Mark Attendance</button>
 
@@ -15,9 +19,21 @@
 <script>
 
 function set(){
-var guard=localStorage.guard||"";
-document.getElementById("g").value=guard;
-alert("Attendance Submitted");
+
+var guard = localStorage.guard || "";
+
+if(guard==""){
+alert("Please go back and Save your name first");
+return false;
+}
+
+document.getElementById("show").value = guard;
+document.getElementById("g").value = guard;
+
+}
+
+window.onload=function(){
+document.getElementById("show").value = localStorage.guard || "";
 }
 
 </script>
