@@ -8,7 +8,8 @@
 
 <script>
 
-const sheet="1CpxpzeEqWKXxTzhnI9nh7WnZdP1jIWIgxkIpS3PBBSc";
+// NEW sheet id
+const sheet="1GcPLcqgyAV23UEQLkQdXUETRAY4dfYlt_6kCG9flYRc";
 
 fetch("https://docs.google.com/spreadsheets/d/"+sheet+"/gviz/tq?sheet=Attendance&tqx=out:json")
 .then(r=>r.text())
@@ -17,7 +18,7 @@ fetch("https://docs.google.com/spreadsheets/d/"+sheet+"/gviz/tq?sheet=Attendance
 const j = JSON.parse(t.substring(47).slice(0,-2));
 let rows = j.table.rows;
 
-// FORCE skip first row (header)
+// skip header
 rows = rows.slice(1);
 
 let h="<tr><th>Name</th><th>Date</th><th>Time</th></tr>";
