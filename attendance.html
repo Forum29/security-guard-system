@@ -1,36 +1,52 @@
 <!DOCTYPE html>
 <html>
-<head>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
+<body>
 
-<body class="bg-light">
+<h3>Attendance</h3>
 
-<div class="container mt-5">
+<button onclick="scan()">Mark Attendance</button>
 
-<div class="card shadow p-4 text-center">
-
-<h4>Mark Attendance</h4>
-
-<form action="https://script.google.com/macros/s/AKfycbwZS379ZnHaTs55GBfAoji_cdSfN_GaKkrWZtByDEsRZfZHHye1OUYdhsG7XLJGXnyQiA/exec" method="GET">
-
-<input name="name" id="box" class="form-control mt-3" placeholder="Enter your name">
-
-<br>
-
-<button class="btn btn-primary">Mark Attendance</button>
-
-</form>
-
-</div>
-
-</div>
+<script src="https://unpkg.com/html5-qrcode"></script>
 
 <script>
-box.value="";
-if(localStorage.guard && localStorage.guard!="undefined"){
-box.value=localStorage.guard;
+
+const siteLat=19.0760;
+const siteLng=72.8777;
+
+function scan(){
+
+navigator.geolocation.getCurrentPosition(pos=>{
+
+const lat=pos.coords.latitude;
+const lng=pos.coords.longitude;
+
+const qr=new Html5Qrcode("reader");
+
+document.body.innerHTML+="<div id='reader'></div>";
+
+qr.start({facingMode:"environment"},{fps:10,qrbox:250},code=>{
+
+qr.stop();
+
+if(distance(lat,lng)>0.1){
+alert("Not at location");
+return;
 }
+
+fetch("https://script.google.com/macros/s/AKfycbx5IHPAfFIEH4dvVVBB3V-0J07DAY2FJqMwQQ2JH9pM4QU_c2kiEOdXM8x27dSrwdqESA/exec?name="+localStorage.guard+"&code="+code+"&lat="+lat+"&lng="+lng)
+.then(r=>r.text())
+.then(t=>document.body.innerHTML="<h2>"+t+"</h2>");
+
+});
+
+});
+
+}
+
+function distance(a,b){
+return Math.sqrt((a-siteLat)**2+(b-siteLng)**2);
+}
+
 </script>
 
 </body>
