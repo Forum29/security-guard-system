@@ -4,47 +4,55 @@
 
 <h3>Attendance</h3>
 
-<button onclick="scan()">Mark Attendance</button>
+<button onclick="start()">Mark Attendance</button>
+
+<div id="reader"></div>
 
 <script src="https://unpkg.com/html5-qrcode"></script>
 
 <script>
 
-const siteLat=19.0760;
-const siteLng=72.8777;
+const SITE_LAT = 19.0760;
+const SITE_LNG = 72.8777;
 
-function scan(){
+const SCRIPT = "https://script.google.com/macros/s/AKfycbx5IHPAfFIEH4dvVVBB3V-0J07DAY2FJqMwQQ2JH9pM4QU_c2kiEOdXM8x27dSrwdqESA/exec";
+
+function start(){
 
 navigator.geolocation.getCurrentPosition(pos=>{
 
-const lat=pos.coords.latitude;
-const lng=pos.coords.longitude;
+const lat = pos.coords.latitude;
+const lng = pos.coords.longitude;
 
-const qr=new Html5Qrcode("reader");
+const qr = new Html5Qrcode("reader");
 
-document.body.innerHTML+="<div id='reader'></div>";
-
-qr.start({facingMode:"environment"},{fps:10,qrbox:250},code=>{
+qr.start(
+{ facingMode: "environment" },
+{ fps:10, qrbox:250 },
+code=>{
 
 qr.stop();
 
-if(distance(lat,lng)>0.1){
+if(dist(lat,lng) > 0.1){
 alert("Not at location");
 return;
 }
 
-fetch("https://script.google.com/macros/s/AKfycbx5IHPAfFIEH4dvVVBB3V-0J07DAY2FJqMwQQ2JH9pM4QU_c2kiEOdXM8x27dSrwdqESA/exec?name="+localStorage.guard+"&code="+code+"&lat="+lat+"&lng="+lng)
+fetch(`${SCRIPT}?name=${localStorage.guard}&code=${code}&lat=${lat}&lng=${lng}`)
 .then(r=>r.text())
-.then(t=>document.body.innerHTML="<h2>"+t+"</h2>");
-
+.then(t=>{
+document.body.innerHTML = "<h2>"+t+"</h2>";
 });
+
+}
+);
 
 });
 
 }
 
-function distance(a,b){
-return Math.sqrt((a-siteLat)**2+(b-siteLng)**2);
+function dist(a,b){
+return Math.sqrt((a-SITE_LAT)**2 + (b-SITE_LNG)**2);
 }
 
 </script>
