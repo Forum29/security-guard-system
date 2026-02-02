@@ -24,7 +24,8 @@
 
 <script>
 
-const SCRIPT="https://script.google.com/macros/s/AKfycbx4Ipntd2yCbFNm5sPcVDFbBOvQ9hSR5burFtixrCrkC6x_kUYkUIJQRuKlzHpD_0oLyw/exec";
+const FORM="1FAIpQLSeSeZKqBH3zg_bq8158HJPLGV1FWR4n4B96sJZ9D9W6YPBCVA";
+const ENTRY="entry.1966971985";
 
 box.value="";
 if(localStorage.guard && localStorage.guard!="undefined"){
@@ -38,16 +39,9 @@ function send(){
 if(sent)return;
 sent=true;
 
-document.querySelector("button").innerText="Saving...";
-
-fetch(SCRIPT+"?name="+encodeURIComponent(box.value))
-.then(r=>r.text())
-.then(t=>{
+fetch(`https://docs.google.com/forms/d/e/${FORM}/formResponse?${ENTRY}=${encodeURIComponent(box.value)}`,{mode:"no-cors"})
+.then(()=>{
 document.body.innerHTML="<h2 class='text-center mt-5'>Done!</h2>";
-})
-.catch(e=>{
-alert("Error connecting to server");
-sent=false;
 });
 
 }
