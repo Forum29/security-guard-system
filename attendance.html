@@ -12,15 +12,11 @@
 
 <h4>Mark Attendance</h4>
 
-<form onsubmit="send(event)">
-
-<input name="name" id="box" class="form-control mt-3" placeholder="Enter your name">
+<input id="box" class="form-control mt-3" placeholder="Enter your name">
 
 <br>
 
-<button class="btn btn-primary">Mark Attendance</button>
-
-</form>
+<button onclick="send()" class="btn btn-primary">Mark Attendance</button>
 
 </div>
 
@@ -37,15 +33,21 @@ box.value=localStorage.guard;
 
 let sent=false;
 
-function send(e){
-e.preventDefault();
-if(sent) return;
+function send(){
+
+if(sent)return;
 sent=true;
 
-fetch(`${SCRIPT}?name=${box.value}`)
+document.querySelector("button").innerText="Saving...";
+
+fetch(SCRIPT+"?name="+encodeURIComponent(box.value))
 .then(r=>r.text())
 .then(t=>{
 document.body.innerHTML="<h2 class='text-center mt-5'>Done!</h2>";
+})
+.catch(e=>{
+alert("Error connecting to server");
+sent=false;
 });
 
 }
