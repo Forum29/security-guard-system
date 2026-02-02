@@ -36,7 +36,8 @@ let c=lines[i].split(",");
 
 if(c[1]){
 
-let d=new Date(c[0]);
+let d=new Date(c[0].replace(" ", "T"));
+
 
 let date=d.toLocaleDateString();
 let time=d.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
