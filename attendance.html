@@ -1,60 +1,36 @@
 <!DOCTYPE html>
 <html>
-<body>
+<head>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
 
-<h3>Attendance</h3>
+<body class="bg-light">
 
-<button onclick="start()">Mark Attendance</button>
+<div class="container mt-5">
 
-<div id="reader"></div>
+<div class="card shadow p-4 text-center">
 
-<script src="https://unpkg.com/html5-qrcode"></script>
+<h4>Mark Attendance</h4>
+
+<form action="PASTE_YOUR_SCRIPT_URL" method="GET">
+
+<input name="name" id="box" class="form-control mt-3" placeholder="Enter your name">
+
+<br>
+
+<button class="btn btn-primary">Mark Attendance</button>
+
+</form>
+
+</div>
+
+</div>
 
 <script>
-
-const SITE_LAT = 18.4450;
-const SITE_LNG = 73.8290;
-
-const SCRIPT = "https://script.google.com/macros/s/AKfycbx5IHPAfFIEH4dvVVBB3V-0J07DAY2FJqMwQQ2JH9pM4QU_c2kiEOdXM8x27dSrwdqESA/exec";
-
-function start(){
-
-navigator.geolocation.getCurrentPosition(pos=>{
-
-const lat = pos.coords.latitude;
-const lng = pos.coords.longitude;
-
-const qr = new Html5Qrcode("reader");
-
-qr.start(
-{ facingMode: "environment" },
-{ fps:10, qrbox:250 },
-code=>{
-
-qr.stop();
-
-if(dist(lat,lng) > 0.1){
-alert("Not at location");
-return;
+box.value="";
+if(localStorage.guard && localStorage.guard!="undefined"){
+box.value=localStorage.guard;
 }
-
-fetch(`${SCRIPT}?name=${localStorage.guard}&code=${code}&lat=${lat}&lng=${lng}`)
-.then(r=>r.text())
-.then(t=>{
-document.body.innerHTML = "<h2>"+t+"</h2>";
-});
-
-}
-);
-
-});
-
-}
-
-function dist(a,b){
-return Math.sqrt((a-SITE_LAT)**2 + (b-SITE_LNG)**2);
-}
-
 </script>
 
 </body>
