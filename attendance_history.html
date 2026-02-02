@@ -28,8 +28,20 @@ let h="<tr><th>Name</th><th>Date</th><th>Time</th></tr>";
 
 for(let i=1;i<lines.length;i++){
 let c=lines[i].split(",");
-if(c[0]){
-h+=`<tr><td>${c[0]}</td><td>${c[1]||""}</td><td>${c[2]||""}</td></tr>`;
+
+// Google Form:
+// c[0] = Timestamp
+// c[1] = Name
+
+if(c[1]){
+
+let d=new Date(c[0]);
+
+let date=d.toLocaleDateString();
+let time=d.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+
+h+=`<tr><td>${c[1]}</td><td>${date}</td><td>${time}</td></tr>`;
+
 }
 }
 
