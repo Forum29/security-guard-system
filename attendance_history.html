@@ -26,33 +26,41 @@ let lines=t.trim().split("\n");
 
 let h="<tr><th>Name</th><th>Date</th><th>Day</th><th>Time</th></tr>";
 
-
 for(let i=1;i<lines.length;i++){
+
 let c=lines[i].split(",");
 
-// Google Form:
 // c[0] = Timestamp
 // c[1] = Name
 
 if(c[1]){
 
-let d=new Date(c[0].replace(" ", "T"));
+let parts = c[0].split(" ");
+let datePart = parts[0].split("/");
+let timePart = parts[1];
 
+let d = new Date(
+  datePart[2],
+  datePart[1]-1,
+  datePart[0],
+  timePart.split(":")[0],
+  timePart.split(":")[1]
+);
 
-let date=d.toLocaleDateString();
-let time=d.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
-
-let day=d.toLocaleDateString('en-US',{weekday:'long'});
+let date = datePart[0] + "/" + datePart[1] + "/" + datePart[2];
+let time = timePart.substring(0,5);
+let day = d.toLocaleDateString('en-US',{weekday:'long'});
 
 h+=`<tr><td>${c[1]}</td><td>${date}</td><td>${day}</td><td>${time}</td></tr>`;
 
-
 }
+
 }
 
 tbl.innerHTML=h;
 
 });
+
 </script>
 
 </body>
